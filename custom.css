@@ -5,32 +5,17 @@
 }
 
 .reveal .state-background {
-    background-image: url("diamond.jpeg");
+    background-image: url("diamond.png");
     background-repeat: no-repeat;
-    background-size: 100% 100%;
-    left center;
+/*    background-size: 100% 100%; */
+    left bottom;
     padding: 5px 0 5px 25px;
-    /*
-    background-size: 80vw 60px;
-    no-repeat;
-    left center;
-    padding: 5px 0 5px 25px;
-    */
 }
 
 .reveal {
-    background-color: #d0e4fe;
     font-size: 200%;
 }
 
 hr{
     border-top: 5px solid blue;
 }
-/*
-.reveal body {
-    background-image: url("diamond.jpeg")
-    no-repeat
-    left center;
-    padding: 5px 0 5px 25px;
-}
-*/
