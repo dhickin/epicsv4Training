@@ -1,4 +1,4 @@
-ipython nbconvert training.ipynb --to slides --post serve
+ipython nbconvert training.ipynb --to slides 
 open training.slides.html
 
 
