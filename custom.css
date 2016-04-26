@@ -1,0 +1,15 @@
+.reveal h1 {
+    font-family: arial
+    background-color: #d0e4fe;
+    color: blue;
+}
+
+.reveal {
+    background-color: #d0e4fe;
+    font-size: 200%;
+}
+
+hr{
+    border-top: 5px solid blue;
+}
+
