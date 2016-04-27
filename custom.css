@@ -15,7 +15,7 @@ div.highlight pre {
 .reveal .state-background {
     background-image: url("diamond.png");
     background-repeat: no-repeat;
-    background-position-y: bottom;
+    background-position: left bottom;
     background-origin: content-box;
     padding: 5px 5px 5px 5px;
 }
