@@ -1,0 +1,29 @@
+.reveal h1 {
+    font-family: arial
+    background-color: #d0e4fe;
+    color: blue;
+}
+
+div.text_cell_render {
+    padding: 0.5em 0.5em 0.0em 0.4em;
+}
+
+div.highlight pre {
+    background-color: #d0e4fe;
+}
+
+.reveal .state-background {
+    background-image: url("diamond.png");
+    background-repeat: no-repeat;
+    background-position-y: bottom;
+    background-origin: content-box;
+    padding: 5px 5px 5px 5px;
+}
+
+.reveal {
+    font-size: 200%;
+}
+
+hr{
+    border-top: 5px solid blue;
+}
