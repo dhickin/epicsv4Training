@@ -7,4 +7,4 @@ fi
 
 ipython nbconvert ${1}.ipynb --to slides --reveal-prefix "http://cdn.jsdelivr.net/reveal.js/2.6.2"
 
-
+cp ${1}.slides.html standalone
