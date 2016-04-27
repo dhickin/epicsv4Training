@@ -1,5 +1,10 @@
 #! /bin/sh
 
-ipython nbconvert introduction.ipynb --to slides --reveal-prefix "http://cdn.jsdelivr.net/reveal.js/2.6.2"
+if [ "$#" -ne 1 ]; then
+  echo "Usage: $0 <presentation>"
+  exit 1
+fi
+
+ipython nbconvert ${1}.ipynb --to slides --reveal-prefix "http://cdn.jsdelivr.net/reveal.js/2.6.2"
 
 

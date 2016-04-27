@@ -1,4 +1,10 @@
 #! /bin/sh
-firefox http://127.0.0.1:8000/introduction.slides.html
+
+if [ "$#" -ne 1 ]; then
+  echo "Usage: $0 <presentation>"
+  exit 1
+fi
+
+firefox http://127.0.0.1:8000/${1}.slides.html
 
 
