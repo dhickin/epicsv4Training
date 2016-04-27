@@ -1,4 +1,4 @@
 #! /bin/sh
-firefox http://localhost:8000/training.slides.html
+firefox http://127.0.0.1:8000/training.slides.html
 
 
