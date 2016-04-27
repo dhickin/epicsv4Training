@@ -4,12 +4,20 @@
     color: blue;
 }
 
+div.text_cell_render {
+    padding: 0.5em 0.5em 0.0em 0.4em;
+}
+
+div.highlight pre {
+    background-color: #d0e4fe;
+}
+
 .reveal .state-background {
     background-image: url("diamond.png");
     background-repeat: no-repeat;
-/*    background-size: 100% 100%; */
-    left bottom;
-    padding: 5px 0 5px 25px;
+    background-position-y: bottom;
+    background-origin: content-box;
+    padding: 5px 5px 5px 5px;
 }
 
 .reveal {

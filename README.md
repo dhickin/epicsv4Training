@@ -11,7 +11,7 @@ installing without admin priveleges.
 
 2. To install ipython in your home directory:  
     ```
-    pip install --user ipython
+    pip install --update --user ipython
     ```  
     and check the version is >= 4.2.0
     ```
