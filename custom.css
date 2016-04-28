@@ -58,7 +58,7 @@ hr {
 }
 
 pre.small-text {
-    font-size: small;
+    font-size: smaller;
 }
 
 .rendered_html pre, .rendered_html code {
