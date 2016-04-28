@@ -31,6 +31,11 @@ div.highlight pre {
     background-color: #d0e4fe;
 }
 
+.reveal pre code {
+    background-color: #d0e4fe;
+    color: black;
+}
+
 .reveal pre {
     background-color: #d0e4fe;
     width: 100%;
@@ -53,7 +58,7 @@ hr {
 }
 
 pre.small-text {
-    font-size: small;
+    font-size: smaller;
 }
 
 .rendered_html pre, .rendered_html code {
