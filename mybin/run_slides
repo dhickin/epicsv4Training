@@ -1,0 +1,11 @@
+#! /bin/sh
+
+if [ "$#" -ne 1 ]; then
+  echo "Usage: $0 <presentation>"
+  exit 1
+fi
+
+cd ../mystandalone
+open ${1}.slides.html
+
+

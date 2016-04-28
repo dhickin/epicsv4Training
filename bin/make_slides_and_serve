@@ -4,10 +4,13 @@ if [ "$#" -ne 1 ]; then
   echo "Usage: $0 <presentation>"
   exit 1
 fi
-ipython nbconvert ${1}.ipynb --to slides --post serve
+
+ipython nbconvert ${1}.ipynb --to slides --post serve --ServePostProcessor.reveal_cdn="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0"
 
 cp ${1}.slides.html standalone
+cp custom.css standalone
+cp diamond.png standalone
 
-open ${1}.slides.html
+
 
 

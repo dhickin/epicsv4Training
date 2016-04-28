@@ -1,0 +1,15 @@
+#! /bin/sh
+
+if [ "$#" -ne 1 ]; then
+  echo "Usage: $0 <presentation>"
+  exit 1
+fi
+ipython nbconvert ${1}.ipynb --to slides --post serve
+
+cp ${1}.slides.html standalone
+cp custom.css standalone
+cp diamond.png standalone
+
+open ${1}.slides.html
+
+

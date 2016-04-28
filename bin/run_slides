@@ -5,6 +5,7 @@ if [ "$#" -ne 1 ]; then
   exit 1
 fi
 
-firefox http://127.0.0.1:8000/${1}.slides.html
+cd ../standalone
+firefox ${1}.slides.html
 
 
