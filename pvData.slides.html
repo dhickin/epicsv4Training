@@ -921,7 +921,7 @@ int[] status    [  0,   0,   3]</code></pre>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Special-structures">Special structures<a class="anchor-link" href="#Special-structures">&#182;</a></h1><p><br/>
+<h1 id="Special-Structures">Special Structures<a class="anchor-link" href="#Special-Structures">&#182;</a></h1><p><br/>
 pvData can be used to define a wide variety of structures. However pvData itself has no knowledge of any specific structure.</p>
 <p>Some standard structures have been defined though. These are referred to as special structures.</p>
 <p>We’ve seen two examples so far: time_t for time stamps and alarm_t for alarms.</p>
@@ -983,6 +983,89 @@ pvData can be used to define a wide variety of structures. However pvData itself
 &nbsp;&nbsp;&nbsp;&nbsp;  5: config status  
 &nbsp;&nbsp;&nbsp;&nbsp;  6: undefined status  
 &nbsp;&nbsp;&nbsp;&nbsp;  7: client status</code></pre>
+
+</div>
+</div>
+</div></section>
+    </section><section>
+    <section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="enum_t">enum_t<a class="anchor-link" href="#enum_t">&#182;</a></h1><p><br/>
+EPICS V4 has no built in support for enums. They are encoded instead using the structure</p>
+
+<pre><code>enum_t 
+    int index
+    string[] choices</code></pre>
+<p>choices contains the labels for valid values of the enumeration and index is the current value in choices.</p>
+<h3 id="Union-fields">Union fields<a class="anchor-link" href="#Union-fields">&#182;</a></h3><p><br/>
+Unions add dynamic typing to V4.</p>
+<p>Union field data objects store field data objects. The introspection object describes what fields can be stored. They come in two flavours:</p>
+<p><strong>Regular</strong> unions – essentially tagged unions. A union field data object stores one of a fixed list of fields. The introspection types</p>
+<p>Variant unions – can store a field of any type.</p>
+
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Variant-Union-fields">Variant Union fields<a class="anchor-link" href="#Variant-Union-fields">&#182;</a></h3><p><br/>
+If a field is a variant union this fully defines its introspection type.</p>
+<p>In the meta language we write the introspection type as</p>
+
+<pre><code>&lt;code&gt;
+any
+&lt;/code&gt;</code></pre>
+<p>So a variant union field is written</p>
+
+<pre><code>any &lt;field-name&gt;</code></pre>
+
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A variant union data object stores a field data object. Unlike the fields of a structure this field is top-level, so has no field name (or it’s empty, which is how it’s implemented in practice).</p>
+<p>In the meta language the stored value is indented, e.g.</p>
+
+<pre><code>any value
+    int                   42
+
+any x
+    double                3.1415
+
+any y
+    enum_t
+        int index         1
+        string[] choices  [Off, On]</code></pre>
+
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For example a key value pair with key ColorMode and value storing an integer 0:</p>
+
+<pre><code>NTAttribute
+    string name ColorMode
+    any value
+        int  0</code></pre>
 
 </div>
 </div>
