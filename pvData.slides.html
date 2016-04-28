@@ -826,9 +826,8 @@ We could encode this as a structure with one field for each column. These fields
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><sub-slide>
-An example of a corresponding data object is:</p>
-<pre>
+<p>An example of a corresponding data object is:</p>
+<pre class="compressed-text">
 NTTable
     string[] labels [value,  seconds, nanoseconds,  status, severity]
     structure value
@@ -910,6 +909,80 @@ So examples of the data objects corresponding to the above fields are</p>
 <pre><code>string[] labels [value,  seconds, nanoseconds,  status, severity] 
 double[] value  [1.1, 1.2, 2.0] 
 int[] status    [  0,   0,   3]</code></pre>
+
+</div>
+</div>
+</div></section>
+    </section><section>
+    <section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Special-structures">Special structures<a class="anchor-link" href="#Special-structures">&#182;</a></h1><p><br/>
+pvData can be used to define a wide variety of structures. However pvData itself has no knowledge of any specific structure.</p>
+<p>Some standard structures have been defined though. These are referred to as special structures.</p>
+<p>We’ve seen two examples so far: time_t for time stamps and alarm_t for alarms.</p>
+
+</div>
+</div>
+</div></section>
+    </section><section>
+    <section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The structure</p>
+
+<pre><code>time_t
+    long secondsPastEpoch
+    int  nanoseconds
+    int  userTag</code></pre>
+<p>describes a defined point in time relative to the midnight on January 1st, 1970 UTC.</p>
+<p>secondsPastEpoch and nanoseconds are the seconds and nanoseconds relative to the above time. Note we use UNIX epoch, not EPICS epoch.</p>
+<p>The meaning of the userTag isn’t specified – it can be used any way the user wishes. One use to store a pulse ID in free electron lasers.</p>
+
+</div>
+</div>
+</div></section>
+    </section><section>
+    <section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The structure
+<br/></p>
+
+<pre><code>alarm_t
+    int severity
+    int status
+    string message</code></pre>
+<p>describes a diagnostic of the value of a control system process variable. It corresponds to the EPICS V3 alarm severity and status, but adds a message string (the meaning of the status is also different).</p>
+<p>severity is an integer whose meaning is</p>
+
+<pre><code>&nbsp;&nbsp;&nbsp;&nbsp;  0: no alarm  
+&nbsp;&nbsp;&nbsp;&nbsp;  1: minor alarm  
+&nbsp;&nbsp;&nbsp;&nbsp;  2: major alarm  
+&nbsp;&nbsp;&nbsp;&nbsp;  3: invalid alarm  
+&nbsp;&nbsp;&nbsp;&nbsp;  4: undefined alarm</code></pre>
+<p>status is an integer whose meaning is</p>
+
+<pre><code>&nbsp;&nbsp;&nbsp;&nbsp;  0: no status  
+&nbsp;&nbsp;&nbsp;&nbsp;  1: device status  
+&nbsp;&nbsp;&nbsp;&nbsp;  2: driver status  
+&nbsp;&nbsp;&nbsp;&nbsp;  3: record status  
+&nbsp;&nbsp;&nbsp;&nbsp;  4: database status  
+&nbsp;&nbsp;&nbsp;&nbsp;  5: config status  
+&nbsp;&nbsp;&nbsp;&nbsp;  6: undefined status  
+&nbsp;&nbsp;&nbsp;&nbsp;  7: client status</code></pre>
 
 </div>
 </div>

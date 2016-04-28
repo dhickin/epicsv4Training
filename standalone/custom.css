@@ -70,3 +70,9 @@ pre.small-text {
     background-color: #d0e4fe;
 }
 
+.reveal sup {
+  font-size: 60%;
+  line-height: 0;
+  vertical-align: baseline;
+}
+
