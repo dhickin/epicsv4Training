@@ -547,29 +547,7 @@ For example the equivalent of a DBR_TIME_DOUBLE would be the structure:</p>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Deltas">Deltas<a class="anchor-link" href="#Deltas">&#182;</a></h1><p><br/>
-In pvAccess operations, on the wire we only need send deltas. So if the value of the structure in the above example is modified:</p>
-
-<pre><code>NTScalar 
-    double value                     8.1
-    alarm_t alarm
-        int severity                   2
-        int status                     3
-        string message        HIHI_ALARM
-    time_t timeStamp 
-        long secondsPastEpoch 1460589145 
-        int nanoseconds        588698520 
-        int userTag                    0</code></pre>
-<p>only changed values (in bold) need be sent (plus changed bitset).</p>
-
-</div>
-</div>
-</div></section><section>
-    
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+In pvAccess operations, on the wire we only need send deltas. So if the value of the structure in the above example is modified to:</p>
 <pre>
 NTScalar 
     double value                     <b>8.1</b>
@@ -583,6 +561,32 @@ NTScalar
         int userTag                    0
 </pre>
 
+<p>only changed values (in <b>bold</b>) need be sent, plus a bitset indicating which fields have changed value.</p>
+
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Each field in the structure is numbered. This is referred to as its offset. The offsets in this case are shown as superscripts:</p>
+<pre>
+NTScalar<sup>0</sup> 
+    double value<sup>1</sup>                     <b>8.1</b>
+    alarm_t alarm<sup>2</sup>
+        int severity<sup>3</sup>                   2
+        int status<sup>4</sup>                     3
+        string message<sup>5</sup>        HIHI_ALARM
+    time_t timeStamp<sup>6</sup> 
+        long secondsPastEpoch<sup>7</sup> <b>1460589145</b> 
+        int nanoseconds<sup>8</sup>        <b>588698520</b> 
+        int userTag<sup>9</sup>                    0
+</pre>
+
+<p>So here the changed bitset is <b>{1,7,8}</b> (bits 1, 7 and 8 set).</p>
 <p>Minimum data required to be sent:</p>
 <ul>
 <li>Changed values: <b>8.1, 1460589145, 588698520</b> (8+8+4=20 bytes)</li>

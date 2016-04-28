@@ -70,3 +70,9 @@ pre.small-text {
     background-color: #d0e4fe;
 }
 
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  vertical-align: baseline;
+}
+

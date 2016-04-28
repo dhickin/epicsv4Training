@@ -34,6 +34,7 @@ div.highlight pre {
 .reveal pre code {
     background-color: #d0e4fe;
     color: black;
+    letter-spacing: -0.02em;
 }
 
 .reveal pre {
@@ -55,6 +56,10 @@ div.highlight pre {
 
 hr {
     border-top: 5px solid blue;
+}
+
+pre.compressed-text {
+    font-size: 65%;
 }
 
 pre.small-text {
