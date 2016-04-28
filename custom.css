@@ -58,6 +58,10 @@ hr {
     border-top: 5px solid blue;
 }
 
+pre.compressed-text {
+    font-size: 90%;
+}
+
 pre.small-text {
     font-size: smaller;
 }
