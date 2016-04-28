@@ -5,7 +5,6 @@ if [ "$#" -ne 1 ]; then
   exit 1
 fi
 
-cd ../mystandalone
-open ${1}.slides.html
+open mystandalone/${1}.slides.html
 
 
