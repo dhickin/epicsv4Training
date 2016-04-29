@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-<title>pvData slides</title>
+<title>pvAccess slides</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -252,7 +252,7 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="pvData-Overview">pvData Overview<a class="anchor-link" href="#pvData-Overview">&#182;</a></h1>
+<h1 id="pvAccess-Overview">pvAccess Overview<a class="anchor-link" href="#pvAccess-Overview">&#182;</a></h1>
 </div>
 </div>
 </div></section></section><section><section>
@@ -261,16 +261,11 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="An-aggregate-data-type">An aggregate data type<a class="anchor-link" href="#An-aggregate-data-type">&#182;</a></h1><p><br/>
-Suppose want to encode a statistical summary of N floating point values.
-Let’s say we want</p>
-<ol>
-<li>A mean (or some other sort average)</li>
-<li>The number of samples</li>
-<li>The standard deviation (or some other measure of spread)</li>
-<li>The maximum value</li>
-<li>The minimum value</li>
-</ol>
+<h1 id="pvAccess">pvAccess<a class="anchor-link" href="#pvAccess">&#182;</a></h1><p><br></p>
+<p>pvAccess is the EPICS Version 4 communication protocol.</p>
+<p>High performance network protocol.</p>
+<p>Designed to carry pvData.</p>
+<p>Successor to Channel Access.</p>
 
 </div>
 </div>
@@ -280,236 +275,13 @@ Let’s say we want</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We could encode this as structure consisting of an ordered set of fields.<br>
-Each field has a name and a type.<br>
-Let’s say:</p>
-<ol>
-<li>A 64-bit floating point field for the average. Let’s call this type “double”. For the name of the field, we could choose “average”, but let’s call it value.</li>
-<li>A 64-bit integer field for the number of samples. Let’s call the type “long” and name the field “N”.</li>
-<li>A double field for the spread. Let’s call it “dispersion”</li>
-<li>A double field “max”</li>
-<li>A double field “min”</li>
-</ol>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>We can write a description of our type as follows:</p>
-
-<pre><code>structure
-    double value
-    long N
-    double dispersion
-    double max
-    double min</code></pre>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Let’s say we have 1000 samples with a mean of 2.0, a standard deviation of 1.0 and a minimum of 0.1 and a maximum of 4.4. We could our encoding of the statistical summary as:</p>
-
-<pre><code>structure
-    double value       2.0
-    long N            1000
-    double dispersion  1.0 
-    double max         4.4
-    double min         0.1</code></pre>
-<p>This system of encoding data in EPICS V4 is called pvData and this way of writing pvData structures is called the pvData meta language.</p>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Some jargon:
-There are two types of objects in pvData: <em>Introspection objects</em> and <em>data objects</em>.</p>
-
-</div>
-</div>
-</div><div class="fragment">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The first type of structure above, which describes the type of a piece of structured data, is an example of an <em>introspection object</em>.</p>
-
-</div>
-</div>
-</div></div><div class="fragment">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The second structure, which carries values, is called a <em>data object</em>.
-Structure data objects have an <em>introspection object</em> and some of the fields can carry data (as in the case above).</p>
-
-</div>
-</div>
-</div></div><div class="fragment">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The values of the fields are referred to as the <em>value data</em> of the fields. The value data of a structure’s fields are called the <em>value data</em> of the structure.</p>
-
-</div>
-</div>
-</div></div><div class="fragment">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The introspection object corresponding to a data object is referred to as its <em>introspection data</em> or its <em>introspection type</em>.</p>
-
-</div>
-</div>
-</div></div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>We can additionally give the type of the structure a name, called the type ID which helps identify the structure. The default type ID for a structure is <strong>structure</strong>.</p>
-<p>The above structure is an example of a standard structure (a Normative Type) called NTAggregate. So let’s give it the type ID <strong>NTAggregate</strong>.</p>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div><div class="fragment">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>When we write a structure we typically write it with the type ID:</p>
-
-<pre><code>NTAggregate
-    double value
-    long N
-    double dispersion
-    double max
-    double min</code></pre>
-
-</div>
-</div>
-</div></div><div class="fragment">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>and the data object above as</p>
-
-<pre><code>NTAggregate
-    double value       2.0
-    long N            1000
-    double dispersion  1.0 
-    double max         4.4
-    double min         0.1</code></pre>
-
-</div>
-</div>
-</div></div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Structure-subfields">Structure subfields<a class="anchor-link" href="#Structure-subfields">&#182;</a></h1><p><br/>
-Now suppose we want to add timestamps for the first and last sample in the data. We could encode the timestamp using the structure:</p>
-
-<pre><code>time_t
-    long secondsPastEpoch
-    int nanoseconds
-    int userTag</code></pre>
-<p>where <strong>int</strong> denotes a 32-bit signed integer</p>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>We could then add structure subfields to our NTAggregate:</p>
-
-<pre><code>NTAggregate
-    double value
-    long N
-    double dispersion
-    double max
-    double min
-    time_t firstTimeStamp
-        long secondsPastEpoch
-        int nanoseconds
-        int userTag
-    time_t lastTimeStamp
-        long secondsPastEpoch
-        int nanoseconds
-        int userTag</code></pre>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The two timestamp fields are fields of the top-level structure as well as the previous scalar fields.</p>
-<p>Their introspection type is the <strong>time_t</strong> structure described above. These fields are themselves structures with fields secondsPastEpoch, nanoseconds and userTag.</p>
-<p>The indentation rules are similar to the indentation rules in Python.</p>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>An example of a corresponding data object would be:</p>
-
-<pre><code>NTAggregate
-    double value       2.0
-    long N            1000
-    double dispersion  1.0 
-    double max         4.4
-    double min         0.1
-    time_t firstTimeStamp
-        long secondsPastEpoch 1460589140
-        int nanoseconds         11436967
-        int userTag                    0
-    time_t lastTimeStamp
-        long secondsPastEpoch 1460589149
-        int nanoseconds        889605397
-        int userTag                    0</code></pre>
+<p>Two key concepts</p>
+<ul>
+<li><p>Channel</p>
+</li>
+<li><p>Channel Provider</p>
+</li>
+</ul>
 
 </div>
 </div>
@@ -519,38 +291,17 @@ Now suppose we want to add timestamps for the first and last sample in the data.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="pvData-structures">pvData structures<a class="anchor-link" href="#pvData-structures">&#182;</a></h1><p><br/>
-In general a pvData structure consists of</p>
+<h1 id="Channel">Channel<a class="anchor-link" href="#Channel">&#182;</a></h1><p><br></p>
+<p>Channel services:</p>
 <ul>
-<li>0 or more fields</li>
-<li>A type ID</li>
+<li>Get Field: Get the pvData introspection data</li>
+<li>Channel Get: Get data.</li>
+<li>Channel Put: Put data.</li>
+<li>Channel PutGet: Put data, let server process it, and then get result.</li>
+<li>Channel Monitor: Monitor pvData changes.</li>
+<li>Channel Array: Get/Put subArray data.</li>
+<li>channelRPC</li>
 </ul>
-<p><br/>
-Each field has</p>
-<ul>
-<li>A name</li>
-<li>An introspection type</li>
-</ul>
-<p><br/>
-For data objects a field may also have values.</p>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>We write a structure as the type ID followed by 0 or more fields on subsequent lines, 1 per line, indented. The precise amount of indentation is not significant, only the level relative to other fields.</p>
-<p>An example is the <strong>NTAggregate</strong> we’ve seen already:</p>
-
-<pre><code>NTAggregate
-    double value
-    long N
-    double dispersion
-    double max
-    double min</code></pre>
 
 </div>
 </div>
@@ -560,40 +311,9 @@ For data objects a field may also have values.</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Field-Types">Field Types<a class="anchor-link" href="#Field-Types">&#182;</a></h1><p><br/>
-There are 6 basic field types namely</p>
-<ul>
-<li>Scalars</li>
-<li>Scalar arrays</li>
-<li>Structures</li>
-<li>Structure arrays</li>
-<li>Union</li>
-<li>Union arrays</li>
-</ul>
-<p><br/>
-This field type is part of the introspection type of the field.</p>
-<p>We’ve already seen examples of two of these: scalars and structures.</p>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Scalar-Fields">Scalar Fields<a class="anchor-link" href="#Scalar-Fields">&#182;</a></h1><p><br/>
-In general scalar fields can be one of the following scalar types</p>
-<ul>
-<li>boolean</li>
-<li>8, 16, 32 or 64-bit signed integers: byte, short, int, long</li>
-<li>8, 16, 32 or 64-bit unsigned integers: ubyte, ushort, uint, ulong</li>
-<li>32 or 64-bit floating point numbers: float, double</li>
-<li>string</li>
-</ul>
-<p><br/>
-The scalar types are based on the Java primitive types with the addition of unsigned integers and string.</p>
-<p>The scalar type entirely specifies the introspection type of a scalar field.</p>
+<h1 id="Channel-Provider">Channel Provider<a class="anchor-link" href="#Channel-Provider">&#182;</a></h1><p><br></p>
+<p>Something which implements Channel</p>
+<p>Remote and local providers</p>
 
 </div>
 </div>
@@ -603,15 +323,13 @@ The scalar types are based on the Java primitive types with the addition of unsi
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><sub-slide> 
-For data objects, scalar fields additionally have value data.</p>
-<p>The possible values for the data for each type are what you would expect. For example:</p>
+<h3 id="Remote-providers">Remote providers<a class="anchor-link" href="#Remote-providers">&#182;</a></h3><p><br></p>
+<p>ca and pva</p>
 <ul>
-<li>boolean: true or false</li>
-<li>byte: integer in the range -128 to 127</li>
-<li>ushort: integer in the range 0 to 65535</li>
-<li>double: 64-bit (IEEE 754) floating point value (e.g 0.1, -3.5e-7, NaN)</li>
-<li>string: string of ascii characters</li>
+<li><p>pva uses pvAccess one the wire. Local Channel provider registered with servers pvAccess provides the channel.</p>
+</li>
+<li><p>ca uses ca on the wire. caProvider on client assembles pvData structures from DBR types</p>
+</li>
 </ul>
 
 </div>
@@ -622,616 +340,30 @@ For data objects, scalar fields additionally have value data.</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The introspection type is written in the pvData meta language as</p>
-
-<pre><code>&lt;scalar-type&gt;</code></pre>
-<p>and scalar field as</p>
-
-<pre><code>&lt;scalar-type&gt; &lt;field-name&gt;</code></pre>
-<p><br/>
-Examples:</p>
-
-<pre><code>double value
-long N
-string message</code></pre>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>For data objects fields are written as</p>
-
-<pre><code>&lt;scalar-type&gt; &lt;field-name&gt; &lt;value&gt;</code></pre>
-<p><br/>
-Examples:</p>
-
-<pre><code>double value 3.14159
-long N 1000
-string message HIHI_ALARM</code></pre>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Structure-fields">Structure fields<a class="anchor-link" href="#Structure-fields">&#182;</a></h1><p><br/>
-For an introspection object, a structure field, as for fields of all types, consists of introspection object and a field name.</p>
-<p>For a structure field that introspection object is itself a structure.</p>
-<p>In other words the top-level structure has a field whose introspection object is a structure.</p>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>As usual we write a structure with structure fields by added the fields one per line, indented, after the type ID.</p>
-<p>For the structure fields we indent their fields one level further.</p>
-
-<pre><code>NTScalar
-    double value
-    alarm_t alarm
-        int severity
-        int status
-        string message
-    time_t timeStamp
-        long secondsPastEpoch
-        int nanoseconds
-        int userTag</code></pre>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Data objects are similar except the fields of a structure field may have values.</p>
-
-<pre><code>NTScalar
-    double value              8
-    alarm_t alarm
-        int severity          2
-        int status            3
-        string message        HIHI_ALARM
-    time_t timeStamp
-        long secondsPastEpoch 1460589140
-        int nanoseconds       389605397
-        int userTag           0</code></pre>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>So in this case the top-level structure has a structure field</p>
-
-<pre><code>alarm_t alarm
-    int severity
-    int status
-    string message</code></pre>
-<p><br/>
-whose name is alarm and whose introspection type is the structure</p>
-
-<pre><code>alarm_t
-    int severity
-    int status
-    string message</code></pre>
-<p><br/>
-and a second structure field</p>
-
-<pre><code>time_t timeStamp
-    long secondsPastEpoch
-    int nanoseconds
-    int userTag</code></pre>
-<p><br/>
-whose name is timestamp and whose introspection type is the structure</p>
-
-<pre><code>time_t
-    long secondsPastEpoch
-    int nanoseconds
-    int userTag</code></pre>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Scalar-Arrays">Scalar Arrays<a class="anchor-link" href="#Scalar-Arrays">&#182;</a></h1><p><br/>
-Suppose we want to encode a table of archiver data for a PV whose value is double.</p>
-<p>We want columns for the value, the seconds past UNIX epoch, nanoseconds and the alarm severities and statuses. We’ll also have a label for each column.</p>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><sub-slide>
-We could encode this as a structure with one field for each column. These fields will be array fields with elements of the appropriate type. We’ll also have an array of strings for the labels. To separate the columns from the labels we’ll put it in a sub-structure. Call it <strong>value</strong> as it’s the primary value of the structure:</p>
-
-<pre><code>NTTable
-    string[] labels
-    structure value
-        double[] value
-        long[] secondsPastEpoch
-        int[] nanoseconds 
-        int[] severity
-        int[] status</code></pre>
-<p><strong>string[ ]</strong> denotes string array field and so on.</p>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>An example of a corresponding data object is:</p>
-<pre class="compressed-text">
-NTTable
-    string[] labels [value,  seconds, nanoseconds,  status, severity]
-    structure value
-        double[] value          [       1.1,       1.2,         2.0]
-        long[] secondsPastEpoch [1460589140, 1460589141, 1460589142]
-        int[] nanoseconds       [ 164235768,  164235245,  164235256]
-        int[] severity          [         0,          0,          1]
-        int[] status            [         0,          0,          3]
-</pre>
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><sub-slide>
-In general scalar arrays fields are used to encode arrays of data of the same scalar type.</p>
-<p>The possible scalar types are the same as for scalar fields:</p>
+<h3 id="Local-providers">Local providers<a class="anchor-link" href="#Local-providers">&#182;</a></h3><p><br></p>
 <ul>
-<li>boolean</li>
-<li>8, 16, 32 or 64-bit signed integers: byte, short, int, long</li>
-<li>8, 16, 32 or 64-bit unsigned integers: ubyte, ushort, uint, ulong</li>
-<li>32 or 64-bit floating point numbers</li>
-<li>string</li>
+<li>rpcServer (pvAccess)</li>
+<li>dbPV (pvaSrv)</li>
+<li>local (pvDatabase)</li>
 </ul>
-<p><br/>
-Like scalars, the introspection type of a scalar array field is completely specified by the scalar type.</p>
 
 </div>
 </div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><sub-slide>
-We write the introspection type in the meta language as</p>
-
-<pre><code>&lt;scalar-type&gt;[]</code></pre>
-<p>So the possible introspection types are</p>
+<h1 id="Getting-a-PV">Getting a PV<a class="anchor-link" href="#Getting-a-PV">&#182;</a></h1><p><br></p>
 <ul>
-<li>boolean[]</li>
-<li>byte[], short[], int[], long[]</li>
-<li>ubyte[], ushort[], uint[], ulong[]</li>
-<li>float[], double[]</li>
-<li>string[]</li>
+<li>Channel Find (UDP broadcast)</li>
+<li>Channel create </li>
+<li>GetField (optional)</li>
+<li>Create Channel Get </li>
+<li>Do Channel Get (with destoy) (Get status, data, changed bitset)</li>
+<li>Detroy Channel</li>
 </ul>
-<p><br/>
-Fields are written</p>
-
-<pre><code>&lt;scalar-type&gt;[] &lt;field-name&gt;</code></pre>
-<p><br/>
-For example</p>
-
-<pre><code>string[] labels
-double[] value
-int[] status</code></pre>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The value data consists of zero or more scalar values. The set of possible values for each element is the same as for the values scalar field.
-<br/>
-We write these values as a comma separated list with square brackets.
-<br/>
-So examples of the data objects corresponding to the above fields are</p>
-
-<pre><code>string[] labels [value,  seconds, nanoseconds,  status, severity] 
-double[] value  [1.1, 1.2, 2.0] 
-int[] status    [  0,   0,   3]</code></pre>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Special-Structures">Special Structures<a class="anchor-link" href="#Special-Structures">&#182;</a></h1><p>pvData can be used to define a wide variety of structures. However pvData itself has no knowledge of any specific structure.</p>
-<p>Some standard structures have been defined though. These are referred to as special structures.</p>
-<p>We’ve seen two examples so far: time_t for time stamps and alarm_t for alarms.</p>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="time_t">time_t<a class="anchor-link" href="#time_t">&#182;</a></h2><p><br/>
-The structure</p>
-
-<pre><code>time_t
-    long secondsPastEpoch
-    int  nanoseconds
-    int  userTag</code></pre>
-<p>describes a defined point in time relative to the midnight on January 1st, 1970 UTC.</p>
-<p>secondsPastEpoch and nanoseconds are the seconds and nanoseconds relative to the above time. Note we use UNIX epoch, not EPICS epoch.</p>
-<p>The meaning of the userTag isn’t specified – it can be used any way the user wishes. One use to store a pulse ID in free electron lasers.</p>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="alarm_t">alarm_t<a class="anchor-link" href="#alarm_t">&#182;</a></h2><p><br/>
-The structure</p>
-
-<pre><code>alarm_t
-    int severity
-    int status
-    string message</code></pre>
-<p>describes a diagnostic of the value of a control system process variable. It corresponds to the EPICS V3 alarm severity and status, but adds a message string (the meaning of the status is also different).</p>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>severity is an integer whose meaning is</p>
-
-<pre><code>&nbsp;&nbsp;&nbsp;&nbsp;  0: no alarm  
-&nbsp;&nbsp;&nbsp;&nbsp;  1: minor alarm  
-&nbsp;&nbsp;&nbsp;&nbsp;  2: major alarm  
-&nbsp;&nbsp;&nbsp;&nbsp;  3: invalid alarm  
-&nbsp;&nbsp;&nbsp;&nbsp;  4: undefined alarm</code></pre>
-<p>status is an integer whose meaning is</p>
-
-<pre><code>&nbsp;&nbsp;&nbsp;&nbsp;  0: no status  
-&nbsp;&nbsp;&nbsp;&nbsp;  1: device status  
-&nbsp;&nbsp;&nbsp;&nbsp;  2: driver status  
-&nbsp;&nbsp;&nbsp;&nbsp;  3: record status  
-&nbsp;&nbsp;&nbsp;&nbsp;  4: database status  
-&nbsp;&nbsp;&nbsp;&nbsp;  5: config status  
-&nbsp;&nbsp;&nbsp;&nbsp;  6: undefined status  
-&nbsp;&nbsp;&nbsp;&nbsp;  7: client status</code></pre>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="enum_t">enum_t<a class="anchor-link" href="#enum_t">&#182;</a></h2><p><br/>
-EPICS V4 has no built in support for enums. They are encoded instead using the structure</p>
-
-<pre><code>enum_t 
-    int index
-    string[] choices</code></pre>
-<p>choices contains the labels for valid values of the enumeration and index is the current value in choices.</p>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Union-fields">Union fields<a class="anchor-link" href="#Union-fields">&#182;</a></h1><p><br/>
-Unions add dynamic typing to V4.</p>
-<p>Union field data objects store field data objects. The introspection object describes what fields can be stored. They come in two flavours:</p>
-<p><strong>Regular</strong> unions – essentially tagged unions. A union field data object stores one of a fixed list of fields. The introspection types</p>
-<p>Variant unions – can store a field of any type.</p>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Variant-Union-fields">Variant Union fields<a class="anchor-link" href="#Variant-Union-fields">&#182;</a></h2><p><br/>
-If a field is a variant union this fully defines its introspection type.</p>
-<p>In the meta language we write the introspection type as</p>
-
-<pre><code>&lt;code&gt;
-any
-&lt;/code&gt;</code></pre>
-<p>So a variant union field is written</p>
-
-<pre><code>any &lt;field-name&gt;</code></pre>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>A variant union data object stores a field data object. Unlike the fields of a structure this field is top-level, so has no field name (or it’s empty, which is how it’s implemented in practice).</p>
-<p>In the meta language the stored value is indented, e.g.</p>
-
-<pre><code>any value
-    int                   42
-
-any x
-    double                3.1415
-
-any y
-    enum_t
-        int index         1
-        string[] choices  [Off, On]</code></pre>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>For example a key value pair with key ColorMode and value storing an integer 0:</p>
-
-<pre><code>NTAttribute
-    string name ColorMode
-    any value
-        int  0</code></pre>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Regular-Union-fields">Regular Union fields<a class="anchor-link" href="#Regular-Union-fields">&#182;</a></h2><p><br/>
-A regular variant union's introspection type consists of consists of</p>
-<ul>
-<li>1 or more fields</li>
-<li>A type ID</li>
-</ul>
-<p><br/>
-Each field has</p>
-<ul>
-<li>A name</li>
-<li>An introspection type </li>
-</ul>
-<p><br/></p>
-<p>Default type ID is "union" (usually default is used).</p>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In the meta language we write the introspection type as</p>
-
-<pre><code>union
-    &lt;field1&gt;
-    ...
-    &lt;fieldN&gt;</code></pre>
-<p>So a regular union field is written</p>
-
-<pre><code>union &lt;field-name&gt;
-    &lt;field1&gt;
-    ...
-    &lt;fieldN&gt;</code></pre>
-<p>For example</p>
-
-<pre><code>union value
-    int i
-    double x
-    time_t timeStamp
-        long secondsPastEpoch
-        int nanoseconds
-        int userTag</code></pre>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>A data field stores a field of the selected type.</p>
-<p>In the meta language we write this as</p>
-
-<pre><code>&lt;code&gt;
-union &lt;field-name&gt;
-    &lt;selected-field&gt;
-&lt;/code&gt;</code></pre>
-<p>Data fields corresponding to above union field:</p>
-
-<pre><code>union value
-    int i 42</code></pre>
-
-<pre><code>union value
-    double x 3.1415</code></pre>
-
-<pre><code>union value
-    time_t timeStamp
-        long secondsPastEpoch 1460589140
-        int nanoseconds       389605397
-        int userTag           0</code></pre>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Structure-Arrays">Structure Arrays<a class="anchor-link" href="#Structure-Arrays">&#182;</a></h1><p><br/>
-Structure array fields are used for arrays of the same structure.</p>
-<p>The introspection type of a structure array is determined by the introspection type of the structure.</p>
-<p>In the meta language we write the introspection type as</p>
-
-<pre><code>structure[]
-     structure
-         &lt;field-list&gt;</code></pre>
-<p>for the default type ID, or more generally</p>
-
-<pre><code>&lt;type-id&gt;[]
-     &lt;type-id&gt;
-         &lt;field-list&gt;</code></pre>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The data objects consist of 0 or more top-level structures</p>
-<p>We write them like this</p>
-
-<pre><code>NTAttribute[] attribute
-     NTAttribute
-         string name ColorMode
-         any value
-             int 0
-     NTAttribute
-         string name SR-DI-DCCT-01
-         any value
-             double 300.1</code></pre>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Union-Arrays">Union Arrays<a class="anchor-link" href="#Union-Arrays">&#182;</a></h1><p><br/>
-Union array fields are used for arrays of the same union - either an array of variant unions or an array of regular unions of the same type.</p>
-<p>The introspection type of a union array is determined by the introspection type of the union.</p>
-<p>In the meta language we write the introspection type as</p>
-
-<pre><code>union[]
-     union
-         &lt;field-list&gt;</code></pre>
-<p>for the regular union arrays and</p>
-
-<pre><code>any[]
-     any</code></pre>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Fields are written</p>
-
-<pre><code>union[] &lt;field-name&gt;
-     union
-         &lt;field-list&gt;</code></pre>
-<p>for the regular union arrays and</p>
-
-<pre><code>any[] &lt;field-name&gt;
-     any</code></pre>
-<p>for variant unions.</p>
-<p>For example</p>
-
-<pre><code>union[] value
-    union
-        int i
-        double x
-        time_t timeStamp
-            long secondsPastEpoch
-            int nanoseconds
-            int userTag</code></pre>
-<p>and</p>
-
-<pre><code>any[] value
-     any</code></pre>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The data objects consist of 0 or more top-level unions</p>
-
-<pre><code>union[] value
-    union
-        int i 42
-    union value
-        double x 3.1415
-    union value
-        time_t timeStamp
-        long secondsPastEpoch 1460589140
-        int nanoseconds       389605397
-        int userTag           0</code></pre>
-
-<pre><code>any[] value
-    any
-        int 42
-    any
-       double 3.1415</code></pre>
 
 </div>
 </div>
