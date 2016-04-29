@@ -1,0 +1,29 @@
+Exercise 1
+
+1. Create a Maths service which takes a structure
+
+structure
+    string a
+    string b
+
+converts them to doubles
+
+and returns the structure
+
+ structure
+    double sum
+
+Test it using eget -z -N -a "a=<NUM1>" -a "b=<NUM2>" mathService
+
+2. Modify client to send the structure
+
+3. Make a, b doubles
+
+4. Add product and difference fields.
+
+ structure
+    double sum
+    double product
+    double difference
+
+
