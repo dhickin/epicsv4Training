@@ -1,6 +1,6 @@
 .reveal h1,h2 {
     font-family: arial
-    background-color: #d0e4fe;
+/*    background-color: #d0e4fe; */
     color: blue;
 }
 .rendered_html h3 {
@@ -21,7 +21,7 @@ div.text_cell_render {
 }
 
 div.highlight pre {
-    background-color: #d0e4fe;
+/*    background-color: #d0e4fe; */
 }
 
 .reveal pre code {
@@ -62,7 +62,7 @@ pre.small-text {
 }
 
 .rendered_html pre, .rendered_html code {
-    background-color: #d0e4fe;
+/*    background-color: #d0e4fe; */
 }
 
 .reveal sup {
