@@ -1,10 +1,7 @@
-EV4_BASE=/home/jms68266/epicsv4/base/R3.14.12.3/latest
-PVDATABASE=$(EV4_BASE)/pvDatabaseCPP
-PVASRV=$(EV4_BASE)/pvaSrv
-PVCLIENT=$(EV4_BASE)/pvaClientCPP
-NORMATIVETYPES=$(EV4_BASE)/normativeTypesCPP
+TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
+
+EV4_BASE=/opt/epics/v4/4.5.0.2/3.15.2
 PVACCESS=$(EV4_BASE)/pvAccessCPP
 PVDATA=$(EV4_BASE)/pvDataCPP
-PVCOMMON=$(EV4_BASE)/pvCommonCPP
-ARCHIVER=/dls_sw/work/R3.14.12.3/support/ChannelArchiver
-EPICS_BASE=/dls_sw/epics/R3.14.12.3/base
+
+EPICS_BASE=/opt/epics/bases/base-3.15.2
