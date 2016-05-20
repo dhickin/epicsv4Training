@@ -1,8 +1,15 @@
-.reveal h1,h2 {
+.reveal h1 {
     font-family: arial
-/*    background-color: #d0e4fe; */
+    background-color: #d0e4fe;
     color: blue;
 }
+
+.reveal h2 {
+    font-family: arial
+    background-color: #d0e4fe;
+    color: blue;
+}
+
 .rendered_html h3 {
     margin: 1.1em 0 0 0;
 }
@@ -21,7 +28,7 @@ div.text_cell_render {
 }
 
 div.highlight pre {
-/*    background-color: #d0e4fe; */
+    background-color: #d0e4fe;
 }
 
 .reveal pre code {
@@ -29,26 +36,20 @@ div.highlight pre {
     color: black;
     letter-spacing: -0.02em;
 }
-
 .reveal pre {
     background-color: #d0e4fe;
     width: 100%;
-    /*font-size: 70%;*/
-    font-size: 100%;
+    font-size: 70%;
 }
-.reveal .state-background {
-    background-image: url("diamond.png");
-    background-repeat: no-repeat;
+.reveal {
+    background-image: url(diamond.png);  /* fallback */
+    background-image: url(diamond.png), linear-gradient(30deg, white, white 25%, #b0c4de);
     background-position: left bottom;
+    background-repeat: no-repeat;
     background-origin: content-box;
     padding: 5px 5px 5px 5px;
-}
-
-.reveal {
-    background: linear-gradient(30deg, white, white 25%, #b0c4de);
     font-size: 200%;
 }
-
 hr {
     border-top: 5px solid blue;
 }
@@ -58,11 +59,11 @@ pre.compressed-text {
 }
 
 pre.small-text {
-    font-size: small;
+    font-size: smaller;
 }
 
 .rendered_html pre, .rendered_html code {
-/*    background-color: #d0e4fe; */
+    background-color: #d0e4fe;
 }
 
 .reveal sup {
@@ -71,14 +72,3 @@ pre.small-text {
   vertical-align: baseline;
 }
 
-div.input_prompt {
-    visibility: hidden;
-}
-div.text_cell {
-    display: block;
-}
-.reveal .slides>section {
-    left: -60%;
-    top: 0%;
-    width: 80vw;
-}

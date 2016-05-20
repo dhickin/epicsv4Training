@@ -36,24 +36,20 @@ div.highlight pre {
     color: black;
     letter-spacing: -0.02em;
 }
-
 .reveal pre {
     background-color: #d0e4fe;
     width: 100%;
     font-size: 70%;
 }
-.reveal .state-background {
-    background-image: url("diamond.png");
-    background-repeat: no-repeat;
+.reveal {
+    background-image: url(diamond.png);  /* fallback */
+    background-image: url(diamond.png), linear-gradient(30deg, white, white 25%, #b0c4de);
     background-position: left bottom;
+    background-repeat: no-repeat;
     background-origin: content-box;
     padding: 5px 5px 5px 5px;
-}
-
-.reveal {
     font-size: 200%;
 }
-
 hr {
     border-top: 5px solid blue;
 }
