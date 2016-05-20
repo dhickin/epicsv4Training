@@ -28,9 +28,9 @@ const static double REQUEST_TIMEOUT = 3.0;
  * The main establishes the connection to the mathsServer, constructs the
  * mechanism to pass parameters to the server, calls the server in the EV4
  * 2-step way, gets the response from the mathsServer, unpacks it, and
- * prints the greeting.
+ * prints the results.
  * 
- * @param args - the name of person to greet. If not supplied then "anonymous".
+ * @param args - the two numbers to be inputted to the maths service.
   */
 int main (int argc, char *argv[])
 {
@@ -69,7 +69,6 @@ int main (int argc, char *argv[])
     catch (...)
     {
         // Catch any other exceptions so we always call ClientFactory::stop().
-        std::cerr << "Acquisition of greeting was not successful. Unexpected exception." << std::endl;
     }
 
     // Stop pvAccess client, so that this application exits cleanly.

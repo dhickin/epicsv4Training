@@ -25,15 +25,14 @@ epics::pvData::PVStructurePtr MathsService::request(
     epics::pvData::PVStructurePtr const & pvArgument
     ) throw (pvAccess::RPCRequestException)
 {   
-    // Extract the arguments. Just one in this case.
-    // Report an error by throwing a RPCRequestException 
+    // Extract the two arguments.
+    // Report an error by throwing a RPCRequestException
 
     // Create the result structure of the data interface.
 
-    // Extract from the constructed data interface the value of
-    // "greeting" field. The value we'll return, is "Maths" concatenated
-    // to the value of the input parameter called "personsname".
-
+    // Fill in the value of the structure's sum field
+    
+    // return the structure.
 }
 
 }
