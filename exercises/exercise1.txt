@@ -1,27 +1,51 @@
 Exercise 1
 
-1. Create a Maths service which takes a structure
+1. Using the template "maths-template", create a Maths service which takes a structure
 
 structure
     string a
     string b
 
-converts them to doubles
+converts the values of the fields to doubles, calculates the sum and returns the structure
 
-and returns the structure
-
- structure
+structure
     double sum
 
-Test it using eget -z -N -a "a=<NUM1>" -a "b=<NUM2>" mathService
+where the sum field contains the calculated sum.
 
-2. Modify client to send the structure
+[ Hints:
 
-3. Make a, b doubles
+a) Look at the hello service example, in particular HelloService.cpp. Use this
+   as a basis.
 
-4. Add product and difference fields.
+b) Scalar fields of type double use PVDouble instead of PVString and have
+   ScalarType pvDouble instead of pvString.
 
- structure
+c) You'll have to convert strings to doubles. atof(const char*) is good enough
+   for this here:
+   atof(<your-string>.c_str())
+
+d) Build using make.
+]
+
+Test it by:
+
+a) starting the server with
+
+   $ ./mathsServerRunner
+
+b) using eget:
+
+   $ eget -z -N -a "a=<NUM1>" -a "b=<NUM2>" mathService
+
+2. Modify client to send the structure instead of using eget.
+   (You'll need to uncomment the client in src/Makefile)
+
+3. Make a & b doubles
+
+4. Add product and difference fields:
+
+structure
     double sum
     double product
     double difference
