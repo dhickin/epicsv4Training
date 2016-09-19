@@ -32,7 +32,8 @@ epics::pvData::PVStructurePtr MathsService::request(
 
     // Fill in the value of the structure's sum field
     
-    // return the structure.
+    // return the structure. Replace null structure with one constructed 
+    return PVStructurePtr();
 }
 
 }
