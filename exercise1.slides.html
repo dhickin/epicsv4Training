@@ -15,8 +15,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <!-- General and theme style sheets -->
-<link rel="stylesheet" href="reveal.js/css/reveal.css">
-<link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/css/reveal.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/css/theme/simple.css" id="theme">
 
 <!-- If the query includes 'print-pdf', include the PDF print sheet -->
 <script>
@@ -24,14 +24,14 @@ if( window.location.search.match( /print-pdf/gi ) ) {
         var link = document.createElement( 'link' );
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = 'reveal.js/css/print/pdf.css';
+        link.href = 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/css/print/pdf.css';
         document.getElementsByTagName( 'head' )[0].appendChild( link );
 }
 
 </script>
 
 <!--[if lt IE 9]>
-<script src="reveal.js/lib/js/html5shiv.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/lib/js/html5shiv.js"></script>
 <![endif]-->
 
 <!-- Loading the mathjax macro -->
@@ -275,7 +275,7 @@ You are going to write a simple service which takes 2 numbers and returns their 
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>A template solution, "maths-template", is provided in exercise-templates.</p>
 <p>Make a copy and fill in the implementation.</p>
-<p>The layout is very similar to the <a href="https://github.com/epics-base/exampleCPP/tree/4.1.1/HelloWorld">Hello World service</a>. You can look there to see how you might supply the implementation for your service.</p>
+<p>The layout is very similar to the <a href="https://github.com/epics-base/exampleCPP/tree/4.2.2/helloRPC">Hello World service</a>. You can look there to see how you might supply the implementation for your service.</p>
 
 </div>
 </div>
@@ -310,7 +310,7 @@ structure
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>[ Hints:</p>
-<p>a) Look at the Hello World Service example, in particular <a href="https://github.com/epics-base/exampleCPP/blob/4.1.1/HelloWorld/helloWorldApp/HelloService.cpp">HelloService.cpp</a>. Use this
+<p>a) Look at the Hello World Service example, in particular <a href="https://github.com/epics-base/exampleCPP/tree/4.2.2/helloRPC/helloWorldApp/HelloService.cpp">HelloService.cpp</a>. Use this
    as a basis.</p>
 <p>b) Scalar fields of type double use PVDouble instead of PVString and have
    ScalarType pvDouble instead of pvString. PVDouble has a similar API , but put() and get() respectively return and take a std::string instread of a double.</p>
@@ -386,8 +386,8 @@ require(
       waitSeconds: 15
     },
     [
-      "reveal.js/lib/js/head.min.js",
-      "reveal.js/js/reveal.js"
+      "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/lib/js/head.min.js",
+      "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/js/reveal.js"
     ],
 
     function(head, Reveal){
@@ -403,9 +403,9 @@ require(
 
             // Optional libraries used to extend on reveal.js
             dependencies: [
-                { src: "reveal.js/lib/js/classList.js",
+                { src: "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/lib/js/classList.js",
                   condition: function() { return !document.body.classList; } },
-                { src: "reveal.js/plugin/notes/notes.js",
+                { src: "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/plugin/notes/notes.js",
                   async: true,
                   condition: function() { return !!document.body.classList; } }
             ]
