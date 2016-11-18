@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-<title>ndarray_exercise slides</title>
+<title>stats_exercise slides</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -252,52 +252,7 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="NTNDArray-Exercise">NTNDArray Exercise<a class="anchor-link" href="#NTNDArray-Exercise">&#182;</a></h1>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="An-NTNDArray-Server">An NTNDArray Server<a class="anchor-link" href="#An-NTNDArray-Server">&#182;</a></h1><p><br>
-You are going to use pvDatabase to write a simple server that generates a NTNDArray.</p>
-<p>A template solution, "ntndarrayServer-template", is provided in exercise-templates.</p>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The class NTNDArrayRecord in ntndarrayServer.h inherits from pvDatabase's PVRecord.</p>
-<p>In ntndarrayServerMain.cpp an instance of NTNDArrayRecord is created.</p>
-<p>NTNDArrayRecord starts a thread which calls the function update() on the NTNDArrayRecord, which updates the image.</p>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Update() calls 6 private functions to update to the image represented by the NTNDArray.</p>
-<div class="highlight"><pre><span class="kt">void</span> <span class="nf">setValue</span><span class="p">(</span><span class="n">epics</span><span class="o">::</span><span class="n">pvData</span><span class="o">::</span><span class="n">PVByteArray</span><span class="o">::</span><span class="n">const_svector</span> 
-        <span class="k">const</span> <span class="o">&amp;</span> <span class="n">bytes</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">setDimension</span><span class="p">(</span><span class="k">const</span> <span class="kt">int32_t</span> <span class="o">*</span> <span class="n">dims</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">ndims</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">setAttributes</span><span class="p">();</span>
-<span class="kt">void</span> <span class="nf">setSizes</span><span class="p">(</span><span class="kt">int64_t</span> <span class="n">size</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">setUniqueId</span><span class="p">(</span><span class="kt">int32_t</span> <span class="n">id</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">setDataTimeStamp</span><span class="p">();</span>
-</pre></div>
-<p>The image data is calculated for you in update using a class RotatingImageGenerator.</p>
-<p>The pvDatabase parts and update thread are done for you.</p>
-<p>All you have to do is fill in the missing implementation of 5 of the functions using the pvData API (setUniqueId() has been done for you).</p>
-<p>The first 3 are enough for the image to display in cs-studio.</p>
+<h1 id="Stats-Service-Exercise">Stats Service Exercise<a class="anchor-link" href="#Stats-Service-Exercise">&#182;</a></h1><hr>
 
 </div>
 </div>
@@ -307,11 +262,38 @@ You are going to use pvDatabase to write a simple server that generates a NTNDAr
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>1. Copy the template "ntndarrayServer-template" and build it.</p><p>Starting the server with</p>
-<div class="highlight"><pre>$ ./bin/linux-x86_64/ntndarrayServerMain &lt;pv-name&gt;
-</pre></div>
-<p><br></p>
-<p>Use pvtools (pvinfo, pvget, pvget -m) to see what's happening.</p>
+<h1 id="Stats-Service">Stats Service<a class="anchor-link" href="#Stats-Service">&#182;</a></h1><p><br>
+You are going to write a simple service which an array of numbers and returns their mean as well as other statistics.</p>
+
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A template solution, "stats-template", is provided in exercise-templates.</p>
+<p>Make a copy and fill in the implementation.</p>
+<p>The layout is very similar to the <a href="https://github.com/epics-base/exampleCPP/tree/4.2.2/helloRPC">Hello World service</a>. You can look there to see how you might supply the implementation for your service.</p>
+
+</div>
+</div>
+</div></div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>1. Create a client which takes a list of arguments, out them in a structure:</p><pre>
+structure
+    double[] value
+</pre><p>and sends to a service.</p>
+<p>You can also set the type ID to make structure this an NTScalarArray:</p>
+<pre>
+epics:nt/NTScalarArray:1.0
+    double[] value
+</pre><p>The service will return an NTAggregate. For each field of the NTAggreagate, check if it is present in the returned structure and if so print it out.</p>
 
 </div>
 </div>
@@ -321,13 +303,20 @@ You are going to use pvDatabase to write a simple server that generates a NTNDAr
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>2. Implement setValue():</p><ul>
-<li>Get the union value field</li>
-<li>Select the byteValue field stored in "value"</li>
-<li>Replace the shared vector with "bytes"</li>
-<li>Call postPut so that the union sees the change in the stored field  </li>
-</ul>
-
+<p>2. Using the template "stats-template", create a Stats service which takes a structure</p><pre>
+structure
+    double[] value
+</pre><p>converts the values of the fields to doubles, calculates the meanand returns the structure</p>
+<pre>
+structure
+    double value
+    long N
+</pre><p>where the value field contains the calculated mean and N the number of samples. Set the type ID to make this an NTAggreate.</p>
+<pre>
+epics:nt/NTAggregate:1.0
+    double value
+    long N
+</pre>
 </div>
 </div>
 </div></section></section><section><section>
@@ -336,14 +325,17 @@ You are going to use pvDatabase to write a simple server that generates a NTNDAr
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>3. Implement setDimension():</p><ul>
-<li>Get the dimension field</li>
-<li>Create a shared_vector or try to reuse the dimension field's one  </li>
-<li>Resize/reserve the number of elements</li>
-<li>Iterate over the number of dimensions, creating and adding the appropriate dimension structures.</li>
-<li>Replace the dimension field's shared_vector (Remember to freeze first)</li>
-</ul>
-
+<p><p>3. Add dispersion (e.g. with the standard deviation), max and min fields. You can also add first and last fields:</p></p>
+<pre>
+epics:nt/NTAggregate:1.0
+    double value
+    long N
+    double dispersion
+    double first
+    double last
+    double max
+    double min
+</pre>
 </div>
 </div>
 </div></section></section><section><section>
@@ -352,73 +344,7 @@ You are going to use pvDatabase to write a simple server that generates a NTNDAr
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>4. Implement setAttributes():</p><ul>
-<li>Get the attribute field</li>
-<li>Create a shared vector or reuse</li>
-<li><p>Create an attribute for the Color Mode</p>
-<ul>
-<li>name: ColorMode</li>
-<li>value: variant union stores a PVInt with value 0</li>
-<li>descriptor: "Color mode"</li>
-<li>source: ""</li>
-<li>sourceType = 0</li>
-</ul>
-</li>
-<li><p>Add the attribute to the shared_vector</p>
-</li>
-<li>Replace the attribute fields stored</li>
-</ul>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>5. Display your image in a CS-Stdio VImage:</p><p>This should be enough to display the image.</p>
-<ul>
-<li>In a CS-Studio BOY screen add a VImage widget</li>
-<li>Set the pv name: =image('pva://<pv-name>')</li>
-<li>Run the BOY screen</li>
-<li>Start the server</li>
-</ul>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>6. Implement setSizes():</p><ul>
-<li>Set the (long) compressedSize and uncompressedSize fields</li>
-</ul>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><p>7. setDataTimeStamp()</p>
-<ul>
-<li>Create PVTimeStamp and TimeStamp objects</li>
-<li>Attach the dataTimeStamp field to the PVTimeStamp</li>
-<li>TimeStamp object should get the current time</li>
-<li>Use it to set the dataTimeStamp field</li>
-</ul>
-<p><BR>
-Alternatively:</p>
-<ul>
-<li>You can use the member objects already created
-for you and do the attaching once</li>
-</ul>
-
+<p>4. Try using NT wrappers to implement the service and client. Use wrappers to create the structure, wrap a received structure and access the fields.</p>
 </div>
 </div>
 </div></section></section>

@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-<title>ndarray_exercise slides</title>
+<title>2-day-course-agenda slides</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -252,80 +252,21 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="NTNDArray-Exercise">NTNDArray Exercise<a class="anchor-link" href="#NTNDArray-Exercise">&#182;</a></h1>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="An-NTNDArray-Server">An NTNDArray Server<a class="anchor-link" href="#An-NTNDArray-Server">&#182;</a></h1><p><br>
-You are going to use pvDatabase to write a simple server that generates a NTNDArray.</p>
-<p>A template solution, "ntndarrayServer-template", is provided in exercise-templates.</p>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The class NTNDArrayRecord in ntndarrayServer.h inherits from pvDatabase's PVRecord.</p>
-<p>In ntndarrayServerMain.cpp an instance of NTNDArrayRecord is created.</p>
-<p>NTNDArrayRecord starts a thread which calls the function update() on the NTNDArrayRecord, which updates the image.</p>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Update() calls 6 private functions to update to the image represented by the NTNDArray.</p>
-<div class="highlight"><pre><span class="kt">void</span> <span class="nf">setValue</span><span class="p">(</span><span class="n">epics</span><span class="o">::</span><span class="n">pvData</span><span class="o">::</span><span class="n">PVByteArray</span><span class="o">::</span><span class="n">const_svector</span> 
-        <span class="k">const</span> <span class="o">&amp;</span> <span class="n">bytes</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">setDimension</span><span class="p">(</span><span class="k">const</span> <span class="kt">int32_t</span> <span class="o">*</span> <span class="n">dims</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">ndims</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">setAttributes</span><span class="p">();</span>
-<span class="kt">void</span> <span class="nf">setSizes</span><span class="p">(</span><span class="kt">int64_t</span> <span class="n">size</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">setUniqueId</span><span class="p">(</span><span class="kt">int32_t</span> <span class="n">id</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">setDataTimeStamp</span><span class="p">();</span>
-</pre></div>
-<p>The image data is calculated for you in update using a class RotatingImageGenerator.</p>
-<p>The pvDatabase parts and update thread are done for you.</p>
-<p>All you have to do is fill in the missing implementation of 5 of the functions using the pvData API (setUniqueId() has been done for you).</p>
-<p>The first 3 are enough for the image to display in cs-studio.</p>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>1. Copy the template "ntndarrayServer-template" and build it.</p><p>Starting the server with</p>
-<div class="highlight"><pre>$ ./bin/linux-x86_64/ntndarrayServerMain &lt;pv-name&gt;
-</pre></div>
-<p><br></p>
-<p>Use pvtools (pvinfo, pvget, pvget -m) to see what's happening.</p>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>2. Implement setValue():</p><ul>
-<li>Get the union value field</li>
-<li>Select the byteValue field stored in "value"</li>
-<li>Replace the shared vector with "bytes"</li>
-<li>Call postPut so that the union sees the change in the stored field  </li>
+<h1 id="Agenda">Agenda<a class="anchor-link" href="#Agenda">&#182;</a></h1><h2 id="Day-1">Day 1<a class="anchor-link" href="#Day-1">&#182;</a></h2><ul>
+<li>Introductions and <a href="2-day-course-overview.slides.html"> course overview </a></li>
+<li><a href="introduction.slides.html"> Introduction EPICS V4 </a>: What is EPICS V4 and what can I do with it?</li>
+<li><a href="http://epics-pvdata.sourceforge.net/informative/training/epicsv4_overview.html#running_examples_and_pvtools"> Demos </a></li>
+<li><a href="overview.slides.html"> Overview of V4 developments </a></li>
+<li>pvTools: <a href="http://epics-pvdata.sourceforge.net/informative/training/epicsv4_overview.html#pvtools"> Overview </a> and
+<a href="pvtools_exercise.slides.html"> Exercise </a></li>
+<li><a href="pvData.slides.html"> pvData - Part I </a> (Structures. Scalar, Structure and Scalar Array fields)</li>
+<li><a href="http://epics-pvdata.sourceforge.net/informative/training/epicsv4_overview.html#rpc_service_example"> First RPC service - Hello World </a></li>
+<li><a href="maths_exercise.slides.html"> Writing RPC service - Maths Service exercise </a></li>
+<li><a href="http://epics-pvdata.sourceforge.net/informative/training/epicsv4_overview.html#pvdata"> pvData APIs - Part I </a>
+(Union, Structure Array and Union Array fields)</li>
+<li><a href="stats_exercise.slides.html"> Stats service exercise </a></li>
+<li>Normative Types</li>
+<li><a href="pvData.slides.html"> pvData - Part II </a></li>
 </ul>
 
 </div>
@@ -336,88 +277,17 @@ You are going to use pvDatabase to write a simple server that generates a NTNDAr
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>3. Implement setDimension():</p><ul>
-<li>Get the dimension field</li>
-<li>Create a shared_vector or try to reuse the dimension field's one  </li>
-<li>Resize/reserve the number of elements</li>
-<li>Iterate over the number of dimensions, creating and adding the appropriate dimension structures.</li>
-<li>Replace the dimension field's shared_vector (Remember to freeze first)</li>
+<h1 id="Agenda">Agenda<a class="anchor-link" href="#Agenda">&#182;</a></h1><h2 id="Day-2">Day 2<a class="anchor-link" href="#Day-2">&#182;</a></h2><ul>
+<li><a href="http://epics-pvdata.sourceforge.net/informative/training/epicsv4_overview.html#pvdata"> pvData APIs - Part II </a></li>
+<li><a href="ndarray_exercise.slides.html"> NDArray exercise </a></li>
+<li>pvDatabase</li>
+<li>pvaClient</li>
+<li>ROI exercise</li>
+<li>pvaPy</li>
+<li>pvAccess</li>
 </ul>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>4. Implement setAttributes():</p><ul>
-<li>Get the attribute field</li>
-<li>Create a shared vector or reuse</li>
-<li><p>Create an attribute for the Color Mode</p>
-<ul>
-<li>name: ColorMode</li>
-<li>value: variant union stores a PVInt with value 0</li>
-<li>descriptor: "Color mode"</li>
-<li>source: ""</li>
-<li>sourceType = 0</li>
-</ul>
-</li>
-<li><p>Add the attribute to the shared_vector</p>
-</li>
-<li>Replace the attribute fields stored</li>
-</ul>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>5. Display your image in a CS-Stdio VImage:</p><p>This should be enough to display the image.</p>
-<ul>
-<li>In a CS-Studio BOY screen add a VImage widget</li>
-<li>Set the pv name: =image('pva://<pv-name>')</li>
-<li>Run the BOY screen</li>
-<li>Start the server</li>
-</ul>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>6. Implement setSizes():</p><ul>
-<li>Set the (long) compressedSize and uncompressedSize fields</li>
-</ul>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><p>7. setDataTimeStamp()</p>
-<ul>
-<li>Create PVTimeStamp and TimeStamp objects</li>
-<li>Attach the dataTimeStamp field to the PVTimeStamp</li>
-<li>TimeStamp object should get the current time</li>
-<li>Use it to set the dataTimeStamp field</li>
-</ul>
-<p><BR>
-Alternatively:</p>
-<ul>
-<li>You can use the member objects already created
-for you and do the attaching once</li>
-</ul>
+<h3 id="Course-Materials">Course Materials<a class="anchor-link" href="#Course-Materials">&#182;</a></h3><p><a href="http://epics-pvdata.sourceforge.net/informative/training/exercises.tar.gz"> C++ </a>
+<a href="http://epics-pvdata.sourceforge.net/informative/training/ntndarrayJava.tar.gz"> Java </a></p>
 
 </div>
 </div>

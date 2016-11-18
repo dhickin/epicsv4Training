@@ -9,14 +9,14 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-<title>ndarray_exercise slides</title>
+<title>introduction_non_training slides</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <!-- General and theme style sheets -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/css/reveal.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/css/theme/simple.css" id="theme">
+<link rel="stylesheet" href="reveal.js/css/reveal.css">
+<link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
 
 <!-- If the query includes 'print-pdf', include the PDF print sheet -->
 <script>
@@ -24,14 +24,14 @@ if( window.location.search.match( /print-pdf/gi ) ) {
         var link = document.createElement( 'link' );
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/css/print/pdf.css';
+        link.href = 'reveal.js/css/print/pdf.css';
         document.getElementsByTagName( 'head' )[0].appendChild( link );
 }
 
 </script>
 
 <!--[if lt IE 9]>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/lib/js/html5shiv.js"></script>
+<script src="reveal.js/lib/js/html5shiv.js"></script>
 <![endif]-->
 
 <!-- Loading the mathjax macro -->
@@ -252,7 +252,8 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="NTNDArray-Exercise">NTNDArray Exercise<a class="anchor-link" href="#NTNDArray-Exercise">&#182;</a></h1>
+<h1 id="EPICS-V4-Introduction">EPICS V4 Introduction<a class="anchor-link" href="#EPICS-V4-Introduction">&#182;</a></h1><hr>
+
 </div>
 </div>
 </div></section></section><section><section>
@@ -261,9 +262,12 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="An-NTNDArray-Server">An NTNDArray Server<a class="anchor-link" href="#An-NTNDArray-Server">&#182;</a></h1><p><br>
-You are going to use pvDatabase to write a simple server that generates a NTNDArray.</p>
-<p>A template solution, "ntndarrayServer-template", is provided in exercise-templates.</p>
+<h1 id="What-is-EPICS-Version-4?">What is EPICS Version 4?<a class="anchor-link" href="#What-is-EPICS-Version-4?">&#182;</a></h1><ul>
+<li><p>EPICS is  set of tools, libraries and applications to create distributed control system</p>
+</li>
+<li><p>Version 4 adds structured data to EPICS</p>
+</li>
+</ul>
 
 </div>
 </div>
@@ -273,9 +277,19 @@ You are going to use pvDatabase to write a simple server that generates a NTNDAr
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The class NTNDArrayRecord in ntndarrayServer.h inherits from pvDatabase's PVRecord.</p>
-<p>In ntndarrayServerMain.cpp an instance of NTNDArrayRecord is created.</p>
-<p>NTNDArrayRecord starts a thread which calls the function update() on the NTNDArrayRecord, which updates the image.</p>
+<h3 id="In-EPICS-V3-we-deal-with-single-values-and-limited-set-of-data-structures.">In EPICS V3 we deal with single values and limited set of data structures.<a class="anchor-link" href="#In-EPICS-V3-we-deal-with-single-values-and-limited-set-of-data-structures.">&#182;</a></h3><p>PV is a representation of a single value on EPICS V3 host</p>
+<p>Types of these values are from basic set of simple types:</p>
+<ul>
+<li>DBR_CHAR, DBR_SHORT, DBR_LONG, DBR_FLOAT, DBR_DOUBLE, DBR_STRING, DBR_ENUM</li>
+</ul>
+<p>Channel Access channels are connections to single PV.</p>
+<p>Limited support for structured data:</p>
+<ul>
+<li>DBR_STS types add alarm status and severity</li>
+<li>DBR_TIME adds time stamps to DBR_STS</li>
+<li>DBR_GR adds alarm limits, units and precision to DBR_STS</li>
+<li>DBR_CTRL adds control limits to DBR_GR</li>
+</ul>
 
 </div>
 </div>
@@ -285,88 +299,10 @@ You are going to use pvDatabase to write a simple server that generates a NTNDAr
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Update() calls 6 private functions to update to the image represented by the NTNDArray.</p>
-<div class="highlight"><pre><span class="kt">void</span> <span class="nf">setValue</span><span class="p">(</span><span class="n">epics</span><span class="o">::</span><span class="n">pvData</span><span class="o">::</span><span class="n">PVByteArray</span><span class="o">::</span><span class="n">const_svector</span> 
-        <span class="k">const</span> <span class="o">&amp;</span> <span class="n">bytes</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">setDimension</span><span class="p">(</span><span class="k">const</span> <span class="kt">int32_t</span> <span class="o">*</span> <span class="n">dims</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">ndims</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">setAttributes</span><span class="p">();</span>
-<span class="kt">void</span> <span class="nf">setSizes</span><span class="p">(</span><span class="kt">int64_t</span> <span class="n">size</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">setUniqueId</span><span class="p">(</span><span class="kt">int32_t</span> <span class="n">id</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">setDataTimeStamp</span><span class="p">();</span>
-</pre></div>
-<p>The image data is calculated for you in update using a class RotatingImageGenerator.</p>
-<p>The pvDatabase parts and update thread are done for you.</p>
-<p>All you have to do is fill in the missing implementation of 5 of the functions using the pvData API (setUniqueId() has been done for you).</p>
-<p>The first 3 are enough for the image to display in cs-studio.</p>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>1. Copy the template "ntndarrayServer-template" and build it.</p><p>Starting the server with</p>
-<div class="highlight"><pre>$ ./bin/linux-x86_64/ntndarrayServerMain &lt;pv-name&gt;
-</pre></div>
-<p><br></p>
-<p>Use pvtools (pvinfo, pvget, pvget -m) to see what's happening.</p>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>2. Implement setValue():</p><ul>
-<li>Get the union value field</li>
-<li>Select the byteValue field stored in "value"</li>
-<li>Replace the shared vector with "bytes"</li>
-<li>Call postPut so that the union sees the change in the stored field  </li>
-</ul>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>3. Implement setDimension():</p><ul>
-<li>Get the dimension field</li>
-<li>Create a shared_vector or try to reuse the dimension field's one  </li>
-<li>Resize/reserve the number of elements</li>
-<li>Iterate over the number of dimensions, creating and adding the appropriate dimension structures.</li>
-<li>Replace the dimension field's shared_vector (Remember to freeze first)</li>
-</ul>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>4. Implement setAttributes():</p><ul>
-<li>Get the attribute field</li>
-<li>Create a shared vector or reuse</li>
-<li><p>Create an attribute for the Color Mode</p>
+<h3 id="In-EPICS-V4-there-is-support-for-a-rich-set-of-data-types">In EPICS V4 there is support for a rich set of data types<a class="anchor-link" href="#In-EPICS-V4-there-is-support-for-a-rich-set-of-data-types">&#182;</a></h3><p>pvData: A system of structured data types</p>
+<p>pvAccess: operations involving pvData structures and network protocol to carry them</p>
 <ul>
-<li>name: ColorMode</li>
-<li>value: variant union stores a PVInt with value 0</li>
-<li>descriptor: "Color mode"</li>
-<li>source: ""</li>
-<li>sourceType = 0</li>
-</ul>
-</li>
-<li><p>Add the attribute to the shared_vector</p>
-</li>
-<li>Replace the attribute fields stored</li>
+<li>Can get, put, monitor structures. (And do some other things too like RPC)</li>
 </ul>
 
 </div>
@@ -377,12 +313,65 @@ You are going to use pvDatabase to write a simple server that generates a NTNDAr
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>5. Display your image in a CS-Stdio VImage:</p><p>This should be enough to display the image.</p>
+<h1 id="What-can-we-do-with-it?">What can we do with it?<a class="anchor-link" href="#What-can-we-do-with-it?">&#182;</a></h1>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="V4-can-do-everything-V3-can-do-(but-better)">V4 can do everything V3 can do (but better)<a class="anchor-link" href="#V4-can-do-everything-V3-can-do-(but-better)">&#182;</a></h1><p><br/>
+Can construct pvData structures analogous to DBR types.
+For example the equivalent of a DBR_TIME_DOUBLE would be the structure:</p>
+
+<pre><code>NTScalar
+    double value
+    alarm_t alarm
+        int severity
+        int status
+        string message
+    time_t timeStamp
+        long secondsPastEpoch 
+        int nanoseconds
+        int userTag</code></pre>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In <strong>V4</strong> can create a channel to a structured PV and get a subset of fields equivalent to a DBR type.</p>
+<p>So for a PV whose principal value is a double we can get the equivalent to DBR_TIME_DOUBLE, which, including values, might look something like</p>
+
+<pre><code>NTScalar
+    double value                       8
+    alarm_t alarm
+        int severity                   2
+        int status                     3
+        string message        HIHI_ALARM
+    time_t timeStamp
+        long secondsPastEpoch 1460589140
+        int nanoseconds        389605397
+        int userTag                    0</code></pre>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In V4 can go beyond DBR types by asking for combinations not possible in Channel Access.</p>
+<p>Possible to request arbitrary subsets of these structures. For example</p>
 <ul>
-<li>In a CS-Studio BOY screen add a VImage widget</li>
-<li>Set the pv name: =image('pva://<pv-name>')</li>
-<li>Run the BOY screen</li>
-<li>Start the server</li>
+<li>Time stamp without alarm</li>
+<li>Control limits and time stamp at the same time.</li>
 </ul>
 
 </div>
@@ -393,8 +382,46 @@ You are going to use pvDatabase to write a simple server that generates a NTNDAr
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>6. Implement setSizes():</p><ul>
-<li>Set the (long) compressedSize and uncompressedSize fields</li>
+<h1 id="Deltas">Deltas<a class="anchor-link" href="#Deltas">&#182;</a></h1><p><br/>
+In pvAccess operations, on the wire we only need send deltas. So if the value of the structure in the above example is modified to:</p>
+<pre>
+NTScalar 
+    double value                     <b>8.1</b>
+    alarm_t alarm
+        int severity                   2
+        int status                     3
+        string message        HIHI_ALARM
+    time_t timeStamp 
+        long secondsPastEpoch <b>1460589145</b> 
+        int nanoseconds        <b>588698520</b> 
+        int userTag                    0
+</pre><p>only changed values (in <b>bold</b>) need be sent, plus a bitset indicating which fields have changed value.</p>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Each field in the structure is numbered. This is referred to as its offset. The offsets in this case are shown as superscripts:</p>
+<pre>
+NTScalar<sup>0</sup> 
+    double value<sup>1</sup>                     <b>8.1</b>
+    alarm_t alarm<sup>2</sup>
+        int severity<sup>3</sup>                   2
+        int status<sup>4</sup>                     3
+        string message<sup>5</sup>        HIHI_ALARM
+    time_t timeStamp<sup>6</sup> 
+        long secondsPastEpoch<sup>7</sup> <b>1460589145</b> 
+        int nanoseconds<sup>8</sup>        <b>588698520</b> 
+        int userTag<sup>9</sup>                    0
+</pre><p>So here the changed bitset is <b>{1,7,8}</b> (bits 1, 7 and 8 set).</p>
+<p>Minimum data required to be sent:</p>
+<ul>
+<li>Changed values: <b>8.1, 1460589145, 588698520</b> (8+8+4=20 bytes)</li>
+<li>Changed bitset: {<b>1,7,8</b>} (1+2=3 bytes)  </li>
 </ul>
 
 </div>
@@ -405,20 +432,210 @@ You are going to use pvDatabase to write a simple server that generates a NTNDAr
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><p>7. setDataTimeStamp()</p>
-<ul>
-<li>Create PVTimeStamp and TimeStamp objects</li>
-<li>Attach the dataTimeStamp field to the PVTimeStamp</li>
-<li>TimeStamp object should get the current time</li>
-<li>Use it to set the dataTimeStamp field</li>
+<h1 id="V4-fixes-a-number-of-problems-in-V3:">V4 fixes a number of problems in V3:<a class="anchor-link" href="#V4-fixes-a-number-of-problems-in-V3:">&#182;</a></h1><h3 id="V4-has-better-support-for-Arrays:">V4 has better support for Arrays:<a class="anchor-link" href="#V4-has-better-support-for-Arrays:">&#182;</a></h3><ul>
+<li>No element_count upper limit (fixed and bounded arrays possible)</li>
+<li>Clear distinction between arrays of size 1 and scalars</li>
 </ul>
-<p><BR>
-Alternatively:</p>
-<ul>
-<li>You can use the member objects already created
-for you and do the attaching once</li>
+<h3 id="Better-support-for-Strings:">Better support for Strings:<a class="anchor-link" href="#Better-support-for-Strings:">&#182;</a></h3><ul>
+<li>Arbitrary size  </li>
+<li>No fixed limit or need for long string workaround</li>
+</ul>
+<h3 id="Much-better-support-for-arrays-of-strings">Much better support for arrays of strings<a class="anchor-link" href="#Much-better-support-for-arrays-of-strings">&#182;</a></h3><ul>
+<li>Handles arbitrary number of arbitrary length strings</li>
 </ul>
 
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Better-support-for-signed/unsigned-types">Better support for signed/unsigned types<a class="anchor-link" href="#Better-support-for-signed/unsigned-types">&#182;</a></h3><ul>
+<li>Separate types for unsigned and signed and support on the wire for encoding.</li>
+</ul>
+<h3 id="64-bit-integers">64-bit integers<a class="anchor-link" href="#64-bit-integers">&#182;</a></h3><h3 id="Enums-not-limited-to-16-values">Enums not limited to 16 values<a class="anchor-link" href="#Enums-not-limited-to-16-values">&#182;</a></h3>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Group-operations">Group operations<a class="anchor-link" href="#Group-operations">&#182;</a></h1><p><br/>
+EPICS V4 allows possibility of atomic operations on group of PVs.</p>
+<p>For example, for PVs X and Y, representing x and y coordinates, can have a channel to group PV and get the values and time stamps of the 2 position PVs:</p>
+
+<pre><code>structure
+    NTScalar
+        double X 1.1
+        time_t timeStamp
+            long secondsPastEpoch 1460589140
+            int nanoseconds 385960397
+            int userTag 0
+    NTScalar
+        double Y 2.3
+        time_t timeStamp
+            long secondsPastEpoch 1460589140
+            int nanoseconds 385643513
+            int userTag 0</code></pre>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Note in V4 can also create structures like this:</p>
+
+<pre><code>structure
+    structure value
+        double X 1.1
+        double Y 2.3
+    time_t timeStamp
+        long secondsPastEpoch 1460589140
+        int nanoseconds 385960397
+        int userTag 0</code></pre>
+<p>where we think of a point as being the fundamental object rather than be made up of two coordinates.</p>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Complex-Data-Types">Complex Data Types<a class="anchor-link" href="#Complex-Data-Types">&#182;</a></h1><p><br/>
+pvData can encode more complex data types like a table:</p>
+
+<pre><code>NTTable
+    string[] labels [value, seconds, nanoseconds, status, severity] 
+    structure value
+        double[] value          [       1.1,        1.2,        2.0] 
+        long[] secondsPastEpoch [1460589140, 1460589141, 1460589142]
+        int[] nanoseconds       [ 164235768,  164235245,  164235256]
+        int[] severity          [         0,          0,          1]
+        int[] status            [         0,          0,          3]</code></pre>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>or a request:</p>
+
+<pre><code>NTURI 
+    string path archiveService
+    string scheme pva 
+    structure query
+        string entity emittance
+        string starttime  1460589140
+        string endtime    1460589143</code></pre>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="EPICS-V4-Services">EPICS V4 Services<a class="anchor-link" href="#EPICS-V4-Services">&#182;</a></h1><p><br/>
+pvAccess adds an RPC operation.</p>
+<p>Client sends a structure argument and server returns a structure response.</p>
+<p>Allows creation of V4 services:</p>
+<ul>
+<li>Archiver service</li>
+<li>Magnet polynomial service</li>
+<li>Snapshot/restore</li>
+<li>Twiss parameters </li>
+</ul>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Complex-control">Complex control<a class="anchor-link" href="#Complex-control">&#182;</a></h1><p><br/>
+Possible to create complex structures representing, for example, a detector, camera driver, file writer or camera plugin.</p>
+<p>Can put to subset of fields for control or monitor whole structure.</p>
+<p>With RPC can add “methods” and create distributed objects.</p>
+<p>An example is the <a href="http://pymalcolm.readthedocs.io/en/latest/">Malcom project</a>       at Diamond.</p>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="V4-for-experiment-data:">V4 for experiment data:<a class="anchor-link" href="#V4-for-experiment-data:">&#182;</a></h1><p><br/>
+Can put experiment data in a structure “PV” and monitor.</p>
+<h3 id="Examples:">Examples:<a class="anchor-link" href="#Examples:">&#182;</a></h3><ul>
+<li>areaDetector NDArrays</li>
+<li>Neutron data  </li>
+</ul>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For example 1 frame of areaDetector data can be encoded using the structure of the following type:</p>
+<pre class="small-text">
+NTNDArray
+    union value
+        boolean[] booleanValue
+        byte[] byteValue
+        short[] shortValue
+        int[] intValue
+        long[] longValue
+        ubyte[] ubyteValue
+        ushort[] ushortValue
+        uint[] uintValue
+        ulong[] ulongValue
+        float[] floatValue
+        double[] doubleValue
+    codec_t codec
+        string name
+        any parameters
+    long compressedSize
+    long uncompressedSize
+    dimension_t[] dimension
+        dimension_t
+            int size
+            int offset
+            int fullSize
+            int binning
+            boolean reverse
+    int uniqueId
+    time_t dataTimeStamp
+        long secondsPastEpoch
+        int nanoseconds
+        int userTag
+     NTAttribute [] attribute
+         NTAttribute
+            string name
+            any value
+            string descriptor
+            int sourceType
+            string source
+</pre>
 </div>
 </div>
 </div></section></section>
@@ -434,8 +651,8 @@ require(
       waitSeconds: 15
     },
     [
-      "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/lib/js/head.min.js",
-      "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/js/reveal.js"
+      "reveal.js/lib/js/head.min.js",
+      "reveal.js/js/reveal.js"
     ],
 
     function(head, Reveal){
@@ -451,9 +668,9 @@ require(
 
             // Optional libraries used to extend on reveal.js
             dependencies: [
-                { src: "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/lib/js/classList.js",
+                { src: "reveal.js/lib/js/classList.js",
                   condition: function() { return !document.body.classList; } },
-                { src: "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/plugin/notes/notes.js",
+                { src: "reveal.js/plugin/notes/notes.js",
                   async: true,
                   condition: function() { return !!document.body.classList; } }
             ]
